@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #videoFrame {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+        #videoTitle {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>YouTube Video Fetcher</h1>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL" />
+    <button id="fetchButton">Fetch Video</button>
+
+    <div id="videoFrame">
+        <h2 id="videoTitle"></h2>
+        <iframe id="player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', () => {
+            const url = document.getElementById('videoUrl').value;
+            const videoId = extractVideoId(url);
+
+            if (videoId) {
+                fetchVideoTitle(videoId, (title) => {
+                    document.getElementById('videoTitle').innerText = title;
+                    document.getElementById('player').src = `https://www.youtube.com/embed/${videoId}`;
+                    document.getElementById('videoFrame').style.display = 'block';
+                });
+            } else {
+                alert('Please enter a valid YouTube URL');
+            }
+        });
+
+        function extractVideoId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^&\n]{11})/;
+            const matches = url.match(regex);
+            return matches ? matches[1] : null;
+        }
+
+        function fetchVideoTitle(videoId, callback) {
+            const url = `https://www.youtube.com/watch?v=${videoId}`;
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    const titleMatch = data.match(/<title>(.*?)<\/title>/);
+                    if (titleMatch && titleMatch[1]) {
+                        const videoTitle = titleMatch[1].replace(" - YouTube", "").trim();
+                        callback(videoTitle);
+                    } else {
+                        callback("Unknown Title");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching video title:", error);
+                    callback("Unknown Title");
+                });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google" content="notranslate">
+
+    <title>Add Video - Oftrack</title>
+                <link rel="stylesheet" href="/oftrack/app/app.css">
+        <script src="/oftrack/app/app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0d0d0d, #262626);
+            color: #ffffff;
+            animation: backgroundAnimation 15s infinite alternate;
+            overflow-y: scroll;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background: #0d0d0d;
+            }
+
+            50% {
+                background: #262626;
+            }
+
+            100% {
+                background: #0d0d0d;
+            }
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            font-size: 24px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 180px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .input-field,
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin: 10px -10px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .input-field {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: #ccc;
+        }
+
+        .btn {
+            background-color: #D81010; /* Green */
+            color: #ffffff;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+
+        .btn:hover {
+            background-color: #800A0A; /* Darker Green */
+        }
+
+        #addDetails {
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* Custom alert styles */
+        .alert-modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+
+        .alert-content {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: auto;
+            width: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .alert-content h3 {
+            margin-top: 0;
+        }
+
+        .close-alert {
+            background-color: #f44336; /* Red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .close-alert:hover {
+            background-color: #d32f2f; /* Darker Red */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="/oftrack/Assets/images/logo.png" alt="Oftrack Logo">
+        
+    </header>
+
+    <div class="content">
+        <h2>Add Video to Playlist</h2>
+        <input id="videoUrl" class="input-field" type="text" placeholder="Enter YouTube Video URL">
+        <button class="btn" onclick="previewVideo()">Preview Video</button>
+        <div id="videoPreview"></div>
+        <div id="addDetails">
+            <input id="videoName" class="input-field" type="text" placeholder="Video Name">
+            <input id="description" class="input-field" type="text" placeholder="Description (optional)">
+            <input id="artist" class="input-field" type="text" placeholder="Artist (optional)">
+            <input id="tags" class="input-field" type="text" placeholder="Tags (optional)">
+            <input id="playlistName" class="input-field" type="text" placeholder="Playlist Name">
+            <button class="btn" onclick="addToPlaylist()">Add to Playlist</button>
+        </div>
+    </div>
+
+    <!-- Custom Alert Modal -->
+    <div id="alertModal" class="alert-modal">
+        <div class="alert-content">
+            <button class="close-alert" onclick="closeAlert()">×</button>
+            <h3 id="alertMessage"></h3>
+        </div>
+    </div>
+
+    <script>
+        function previewVideo() {
+            const url = document.getElementById('videoUrl').value;
+            const videoId = getYouTubeVideoId(url);
+
+            if (videoId) {
+                document.getElementById('videoPreview').innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                document.getElementById('addDetails').style.display = 'block';
+            } else {
+                showAlert('Invalid YouTube URL');
+            }
+        }
+
+        function getYouTubeVideoId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        function addToPlaylist() {
+            const videoId = getYouTubeVideoId(document.getElementById('videoUrl').value);
+            const videoName = document.getElementById('videoName').value;
+            const description = document.getElementById('description').value;
+            const artist = document.getElementById('artist').value;
+            const tags = document.getElementById('tags').value;
+            const playlistName = document.getElementById('playlistName').value;
+
+            if (!playlistName) {
+                showAlert('Please enter a playlist name');
+                return;
+            }
+
+            const playlists = JSON.parse(localStorage.getItem('playlists')) || {};
+            const playlist = playlists[playlistName] || [];
+            playlist.push({ videoId, videoName, description, artist, tags });
+            playlists[playlistName] = playlist;
+            localStorage.setItem('playlists', JSON.stringify(playlists));
+
+            showAlert(`Video added to playlist: ${playlistName}`);
+            window.location.href = '/oftrack/index.html';
+        }
+
+        function showAlert(message) {
+            document.getElementById('alertMessage').innerText = message;
+            document.getElementById('alertModal').style.display = 'block';
+        }
+
+        function closeAlert() {
+            document.getElementById('alertModal').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

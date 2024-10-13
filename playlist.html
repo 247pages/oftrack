@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google" content="notranslate">
+    <title>Playlist - Oftrack</title>
+    <link rel="stylesheet" href="/oftrack/css/playlist.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                <link rel="stylesheet" href="/oftrack/app/app.css">
+                <script src="/oftrack/app/app.js"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="/oftrack/Assets/images/logo.png" alt="App Logo" class="logo">
+        </a>
+        <!-- Home Icon Link -->
+        <a href="/oftrack/index.html" class="home-icon" title="Home">
+            <i class="fas fa-home"></i>
+        </a>
+    </nav>
+
+    <div class="container-fluid video-player">
+        <div id="player"></div>
+        <div class="controls">
+            <button class="btn btn-custom" onclick="prevVideo()">
+                <i class="fas fa-backward"></i> Previous
+            </button>
+            <button class="btn btn-custom" onclick="toggleShuffle()">
+                <i class="fas fa-random"></i> Shuffle
+            </button>
+            <button class="btn btn-custom" onclick="toggleLoop()">
+                <i class="fas fa-redo"></i> Loop
+            </button>
+            <button class="btn btn-custom" onclick="nextVideo()">
+                <i class="fas fa-forward"></i> Next
+            </button>
+        </div>
+    </div>
+
+    <div class="queue-toggle" onclick="toggleMobileQueue()">Playlist Queue</div>
+
+    <div class="video-queue" id="videoListDesktop"></div>
+    <div class="video-queue-mobile" id="videoListMobile"></div>
+
+    <div class="custom-alert" id="alert">
+        <span id="alert-message"></span>
+        <span class="close-alert" onclick="closeAlert()">✖</span>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/oftrack/js/playlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google" content="notranslate">    <title>404 - Oftrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">              
+    <link rel="stylesheet" href="/oftrack/app/app.css">
+        <script src="/oftrack/app/app.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #0d0d0d;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .glitch {
+            font-size: 6rem;
+            color: #ff4d4d;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: "404";
+            position: absolute;
+            left: 0;
+            text-shadow: -2px 0 #00ffcc;
+            animation: glitch 1s infinite alternate-reverse;
+        }
+        
+        .glitch::after {
+            text-shadow: 2px 0 #ff4d4d;
+            animation-delay: 0.3s;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #e84118;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .background-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/noise.png') repeat;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glitch">404</div>
+        <p class="message">Oops! It seems like the beat got lost in the loop.</p>
+        <button class="back-btn" onclick="window.location.href='/oftrack/index.html'">Take Me Home</button>
+    </div>
+    <div class="background-noise"></div>
+</body>
+</html>
