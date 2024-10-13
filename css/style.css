@@ -1,0 +1,99 @@
+/* styles.css */
+
+/* Basic styling */
+body {
+    font-family: 'Roboto', sans-serif; /* Using Google Font */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #121212, #1a1a1a); /* Dark gradient colors */
+    color: #e0e0e0; /* Light text color for contrast */
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.9); /* Dark header */
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Dark shadow for depth */
+}
+
+.logo {
+    height: 50px; /* Adjust according to your logo size */
+    margin-right: 20px;
+}
+
+h1 {
+    font-size: 0.5rem;
+    margin: 0;
+    background: linear-gradient(90deg, #ff6a00, #ee0979); /* Gradient color */
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Fill text with transparent color */
+}
+
+.content {
+    padding: 20px;
+    position: relative; /* Positioning context for content overlay */
+    z-index: 1; /* Ensure content is above background */
+}
+
+.playlist {
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border for contrast */
+    background-color: rgba(255, 255, 255, 0.1); /* Light background for playlists */
+    cursor: pointer;
+    
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ellipsis (...) for overflowing text */
+    white-space: nowrap;
+    transition: background-color 0.2s; /* Hover effect */
+    border-radius: 8px; /* Rounded corners */
+    color: #e0e0e0; /* Light text color for visibility */
+}
+
+.playlist:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Change background on hover */
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: #e0e0e0; /* Light text color for contrast */
+    text-align: center;
+    padding: 5px 0; /* Reduced padding */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5); /* Dark shadow for footer */
+}
+
+.nav-icons {
+    display: flex;
+    justify-content: center; /* Center icons in the footer */
+    align-items: center;
+}
+
+.nav-icon {
+    color: #e0e0e0; /* Light color for icons */
+    font-size: 24px;
+    margin: 0 60px; /* Reduced space between icons */
+}
+
+.add-icon {
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Circular shape */
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Light gradient color */
+    transition: background 0.3s; /* Transition for background on hover */
+}
+
+.add-icon:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+}
